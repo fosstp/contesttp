@@ -9,6 +9,7 @@ pyramid = "*"
 
 [dev-packages]
 behave = "*"
+pyramid-debugtoolbar = "*"
 
 [requires]
 python_version = "3.5"
