@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cb05738e910f08785835e637b31be85999e30e860ed492b95873b67bab310674"
+            "sha256": "01399eeb98ed660f918f5d3aee8b49c30bd645957de59c0cea032e01e93a15ea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -22,6 +22,19 @@
                 "sha256:e18037fa43fb4af7c00bd262ca6f5d7bcd22debd5d71e43b0fb1437f56e78035"
             ],
             "version": "==1.1"
+        },
+        "jinja2": {
+            "hashes": [
+                "sha256:74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd",
+                "sha256:f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"
+            ],
+            "version": "==2.10"
+        },
+        "markupsafe": {
+            "hashes": [
+                "sha256:a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665"
+            ],
+            "version": "==1.0"
         },
         "pastedeploy": {
             "hashes": [
@@ -51,6 +64,14 @@
             ],
             "index": "pypi",
             "version": "==1.9.1"
+        },
+        "pyramid-jinja2": {
+            "hashes": [
+                "sha256:2e12f1f40d770be2d9680697bb7f9e3dd446341db254b8ebdd8539f9118ddd75",
+                "sha256:5c21081f65a5bec0b76957990c2b89ed41f4fd11257121387110cb722fd0e5eb"
+            ],
+            "index": "pypi",
+            "version": "==2.7"
         },
         "repoze.lru": {
             "hashes": [
