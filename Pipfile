@@ -12,6 +12,7 @@ behave = "*"
 pyramid-debugtoolbar = "*"
 pytest = "*"
 waitress = "*"
+webtest = "*"
 
 [requires]
 python_version = "3.5"
