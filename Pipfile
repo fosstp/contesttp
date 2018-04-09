@@ -11,6 +11,7 @@ pyramid = "*"
 behave = "*"
 pyramid-debugtoolbar = "*"
 pytest = "*"
+waitress = "*"
 
 [requires]
 python_version = "3.5"
