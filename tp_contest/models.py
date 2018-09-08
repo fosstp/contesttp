@@ -11,10 +11,10 @@ class BaseAccount:
 
     id = Column(Integer, primary_key=True)
 
-    # 學校名稱
+    # 名稱
     name = Column(String(100), unique=True)
 
-    # 學校帳號，國小是 a + 學校代碼（例如a300000），國中是 b + 學校代碼（例如b300000）
+    # 帳號
     account = Column(String(100), unique=True)
 
     # 電子郵件信箱
@@ -30,8 +30,15 @@ class BaseAccount:
     @password.setter
     def password(self, value):
         '''加密明碼'''
-        self.password = hashlib.sha512(
-            value.encode('utf-8')).hexdigest()
+        self.password = self.gen_password_hash(value)
+    
+    def gen_password_hash(self, value):
+        '''產生密碼的 hash'''
+        return hashlib.sha512(value.encode('utf-8')).hexdigest()
+    
+    def verify_password(self, value):
+        '''驗證密碼'''
+        return True if self._password == self.gen_password_hash(value) else False
 
 class Manager(BaseAccount, BaseObject):
     '''管理者帳號'''
@@ -41,9 +48,9 @@ class Manager(BaseAccount, BaseObject):
     # 帳號等級，0 代表最高管理者，1 代表活動管理者
     type = Column(Integer)
 
-    competition = relationship('Competition', backref='manager')
+    competition = relationship('Competition', backref='competition_manager')
 
-    competition_news = relationship('CompetitionNews', backref='manager')
+    competition_news = relationship('CompetitionNews', backref='competition_news_manager')
 
 schools_competition_table = Table('schools_competition', BaseObject.metadata,
     Column('school_id', Integer, ForeignKey('schools.id')),
@@ -51,7 +58,7 @@ schools_competition_table = Table('schools_competition', BaseObject.metadata,
 )
 
 class School(BaseAccount, BaseObject):
-    '''學校帳號'''
+    '''學校帳號，國小是 a + 學校代碼（例如a300000），國中是 b + 學校代碼（例如b300000）'''
 
     __tablename__ = 'schools'
 

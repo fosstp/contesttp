@@ -1,24 +1,26 @@
 {% extends "base.jinja2" %}
 {% block login_nav %} active{% endblock login_nav%}
 {% block content %}
+{% if request.session.peek_flash('error') %}
+  {% for error in request.session.pop_flash('error') %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+  {% endfor %}
+{% endif %}
 <div class="alert alert-dark" role="alert">
   登入系統
 </div>
 <form action="" method="post">
   <div class="form-group">
-    <label for="account_type">帳號類型</label>
-    <select class="form-control" id="account_type">
-      <option value="school">學校</option>
-      <option value="manager">管理者</option>
-    </select>
+    {{ login_form.account_type.label }}
+    {{ login_form.account_type(class='form-control')}}
   </div>
   <div class="form-group">
-    <label for="account">帳號</label>
-    <input type="text" class="form-control" id="account" placeholder="輸入帳號">
+    {{ login_form.account.label }}
+    {{ login_form.account(class='form-control', placeholder='輸入帳號')}}
   </div>
   <div class="form-group">
-    <label for="password">密碼</label>
-    <input type="password" class="form-control" id="password" placeholder="輸入密碼">
+    {{ login_form.password.label }}
+    {{ login_form.password(class='form-control', placeholder='輸入密碼')}}
   </div>
   <button type="submit" class="btn btn-primary">登入</button>
 </form>

@@ -10,8 +10,8 @@ def main(global_config, **settings):
     # session settings
     #
     # using builtin session mechanism
-    #from pyramid.session import SignedCookieSessionFactory
-    #config.set_session_factory(SignedCookieSessionFactory(settings['secret_key']))
+    from pyramid.session import SignedCookieSessionFactory
+    config.set_session_factory(SignedCookieSessionFactory(settings['secret_key']))
 
     config.include('pyramid_tm')
     config.include('pyramid_sqlalchemy')
