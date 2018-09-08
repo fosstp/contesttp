@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1392b9a43485759302f2463f2fd8fdb196b6134302dad734360277df0722a0d6"
+            "sha256": "1c45eaa8ba1e10f7e441d28b510d28bb514f890c1773047ee1aa12f05ae734f0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -396,6 +396,13 @@
             ],
             "version": "==4.3.4"
         },
+        "jinja2": {
+            "hashes": [
+                "sha256:74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd",
+                "sha256:f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"
+            ],
+            "version": "==2.10"
+        },
         "lazy-object-proxy": {
             "hashes": [
                 "sha256:0ce34342b419bd8f018e6666bfef729aec3edf62345a53b537a4dcc115746a33",
@@ -554,6 +561,14 @@
             "index": "pypi",
             "version": "==4.4"
         },
+        "pyramid-jinja2": {
+            "hashes": [
+                "sha256:2e12f1f40d770be2d9680697bb7f9e3dd446341db254b8ebdd8539f9118ddd75",
+                "sha256:5c21081f65a5bec0b76957990c2b89ed41f4fd11257121387110cb722fd0e5eb"
+            ],
+            "index": "pypi",
+            "version": "==2.7"
+        },
         "pyramid-mako": {
             "hashes": [
                 "sha256:6da0987b9874cf53e72139624665a73965bbd7fbde504d1753e4231ce916f3a1"
@@ -596,6 +611,10 @@
                 "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"
             ],
             "version": "==1.11.0"
+        },
+        "tp-contest": {
+            "editable": true,
+            "path": "."
         },
         "translationstring": {
             "hashes": [
