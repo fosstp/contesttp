@@ -1,29 +1,30 @@
 {% extends "base.jinja2" %}
+{% block list_activities_nav %} active{% endblock list_activities_nav%}
 {% block content %}
 <div class="alert alert-dark" role="alert">
-  最新消息
+  競賽活動列表
 </div>
 <table class="table table-bordered">
   <thead>
     <tr>
       <th scope="col">序號</th>
-      <th scope="col">標題</th>
-      <th scope="col">發佈時間</th>
-      <th scope="col">發佈者</th>
+      <th scope="col">競賽名稱</th>
+      <th scope="col">開始報名日期</th>
+      <th scope="col">結束報名日期</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Scratch 比賽開始惹</td>
+      <td>Scratch 比賽</td>
+      <td>2018/01/01 08:00</td>
       <td>2018/12/12 16:00</td>
-      <td>濱江國小</td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>Scratch 比賽結束惹</td>
-      <td>2018/12/12 16:01</td>
-      <td>濱江國小</td>
+      <td>網路作文比賽</td>
+      <td>2019/01/01 08:00</td>
+      <td>2019/12/12 16:00</td>
     </tr>
   </tbody>
 </table>
