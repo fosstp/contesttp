@@ -1,4 +1,4 @@
-contesttp
+tp_contest
 =========
 
 Getting Started
@@ -6,7 +6,7 @@ Getting Started
 
 - Change directory into your newly created project.
 
-    cd contesttp
+    cd tp_contest
 
 - Create a Python virtual environment.
 

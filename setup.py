@@ -23,9 +23,9 @@ tests_require = [
 ]
 
 setup(
-    name='contesttp',
+    name='tp_contest',
     version='0.0',
-    description='contesttp',
+    description='tp_contest',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
         'Programming Language :: Python',
@@ -46,7 +46,7 @@ setup(
     install_requires=requires,
     entry_points={
         'paste.app_factory': [
-            'main = contesttp:main',
+            'main = tp_contest:main',
         ],
     },
 )
