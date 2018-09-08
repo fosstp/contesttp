@@ -1,6 +1,6 @@
 '''定義資料庫 ORM'''
 import hashlib
-from sqlalchemy import ForeignKey, String, Integer, Text, Column, Table
+from sqlalchemy import ForeignKey, String, Integer, Text, DateTime, Column, Table
 from sqlalchemy.orm import relationship, backref
 from pyramid_sqlalchemy import BaseObject
 
@@ -68,6 +68,12 @@ class Competition(BaseObject):
     
     # 比賽名稱
     name = Column(String(100))
+
+    # 報名開始時間
+    begin_signup_datetime = Column(DateTime, nullable=False)
+
+    # 報名結束時間
+    end_signup_datetime = Column(DateTime, nullable=False)
 
     # 管理者
     manager_id = Column(Integer, ForeignKey('managers.id'))
