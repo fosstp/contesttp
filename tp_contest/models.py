@@ -30,7 +30,7 @@ class BaseAccount:
     @password.setter
     def password(self, value):
         '''加密明碼'''
-        self.password = self.gen_password_hash(value)
+        self._password = self.gen_password_hash(value)
     
     def gen_password_hash(self, value):
         '''產生密碼的 hash'''
