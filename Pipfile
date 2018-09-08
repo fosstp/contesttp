@@ -5,7 +5,10 @@ verify_ssl = true
 
 [packages]
 pyramid = "*"
-"pyramid-jinja2" = "*"
+pyramid-jinja2 = "*"
+pyramid-sqlalchemy = "*"
+pyramid-wtforms = "*"
+pyramid-tm = "*"
 
 [dev-packages]
 behave = "*"

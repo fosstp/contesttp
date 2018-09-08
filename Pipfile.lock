@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e93cd53f7a60b6c41d4b86280d40254bf600420a78562628a6897234f73d7e6e"
+            "sha256": "70112e559be92c8c8a7ee8058d87932ccb10c0086e709fe94fe293508cd9960a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -74,12 +74,50 @@
             "index": "pypi",
             "version": "==2.7"
         },
+        "pyramid-sqlalchemy": {
+            "hashes": [
+                "sha256:377a18834e15ff59ba89c882be7d40bdc92ab5ad39a881ff2eba111b84f2418b",
+                "sha256:42176e3df63538ec80aaa9acf0abee759c67c52e7d63aa8863f3f1a1108de959"
+            ],
+            "index": "pypi",
+            "version": "==1.6"
+        },
+        "pyramid-tm": {
+            "hashes": [
+                "sha256:07d03bab7bdd265c3920db4e68dbaa8cbaff27da828700f404b1424244ad617f",
+                "sha256:11b0f31482339d655358081bc1366d39679d02588782b5c8019bfb41ae02ba3d"
+            ],
+            "index": "pypi",
+            "version": "==2.2"
+        },
+        "pyramid-wtforms": {
+            "hashes": [
+                "sha256:4c51501f031e608745b25ea7c6b3e00697926503cb689713221a0bdf15674310",
+                "sha256:4db15ac526953f4c792424419deb7bd1b328d41132cbd8df3412043d244da162"
+            ],
+            "index": "pypi",
+            "version": "==2.4.0"
+        },
         "repoze.lru": {
             "hashes": [
                 "sha256:0429a75e19380e4ed50c0694e26ac8819b4ea7851ee1fc7583c8572db80aff77",
                 "sha256:f77bf0e1096ea445beadd35f3479c5cff2aa1efe604a133e67150bc8630a62ea"
             ],
             "version": "==0.7"
+        },
+        "sqlalchemy": {
+            "hashes": [
+                "sha256:ef6569ad403520ee13e180e1bfd6ed71a0254192a934ec1dbd3dbf48f4aa9524"
+            ],
+            "version": "==1.2.11"
+        },
+        "transaction": {
+            "hashes": [
+                "sha256:269601a3493cd3eddeb869419ceadfc5e6d2bc931e9970d11fc4649dab189c3c",
+                "sha256:9de0f93f833713270fbceaf6092194313c1de0afb660e66dea8e089855eb281c",
+                "sha256:f2242070e437e5d555ea3df809cb517860513254c828f33847df1c5e4b776c7a"
+            ],
+            "version": "==2.2.1"
         },
         "translationstring": {
             "hashes": [
@@ -102,6 +140,13 @@
             ],
             "version": "==1.8.2"
         },
+        "wtforms": {
+            "hashes": [
+                "sha256:0cdbac3e7f6878086c334aa25dc5a33869a3954e9d1e015130d65a69309b3b61",
+                "sha256:e3ee092c827582c50877cdbd49e9ce6d2c5c1f6561f849b3b068c1b8029626f1"
+            ],
+            "version": "==2.2.1"
+        },
         "zope.deprecation": {
             "hashes": [
                 "sha256:7d52e134bbaaa0d72e1e2bc90f0587f1adc116c4bdf15912afaf2f1e8856b224",
@@ -122,6 +167,12 @@
                 "sha256:f41037260deaacb875db250021fe883bf536bf6414a4fd25b25059b02e31b120"
             ],
             "version": "==4.5.0"
+        },
+        "zope.sqlalchemy": {
+            "hashes": [
+                "sha256:9316a1a8bb9e4f9f59332acf1ad2cc8b664f19a4bde5f68be7f61f3e11f80514"
+            ],
+            "version": "==1.0"
         }
     },
     "develop": {
