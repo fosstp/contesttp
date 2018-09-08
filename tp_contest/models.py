@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship, backref
 from pyramid_sqlalchemy import BaseObject
 
 
-class BaseAccount(BaseObject):
+class BaseAccount:
     '''管理者帳號、學校帳號的 base class'''
 
     id = Column(Integer, primary_key=True)
@@ -26,13 +26,13 @@ class BaseAccount(BaseObject):
     def password(self):
         return self._password
 
-    @property.setter
+    @password.setter
     def password(self, value):
         '''加密明碼'''
         self.password = hashlib.sha512(
             value.encode('utf-8')).hexdigest()
 
-class Manager(BaseAccount):
+class Manager(BaseAccount, BaseObject):
     '''管理者帳號'''
 
     __tablename__ = 'managers'
@@ -44,7 +44,12 @@ class Manager(BaseAccount):
 
     competition_news = relationship('CompetitionNews', backref='manager')
 
-class School(BaseAccount):
+schools_competition_table = Table('schools_competition', BaseObject.metadata,
+    Column('school_id', Integer, ForeignKey('schools.id')),
+    Column('competition_id', Integer, ForeignKey('competition.id'))
+)
+
+class School(BaseAccount, BaseObject):
     '''學校帳號'''
 
     __tablename__ = 'schools'
@@ -72,11 +77,6 @@ class Competition(BaseObject):
     sign_up = relationship('CompetitionSignUp', backref='competition')
 
     news = relationship('CompetitionNews', backref='competition')
-
-schools_competition_table = Table('schools_competition', BaseObject.metadata,
-    Column('school_id', Integer, ForeignKey('schools.id')),
-    Column('competition_id', Integer, ForeignKey('competition.id'))
-)
 
 class CompetitionSignUp(BaseObject):
     '''報名特定活動的紀錄'''
