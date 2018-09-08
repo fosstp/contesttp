@@ -10,6 +10,7 @@ pyramid-sqlalchemy = "*"
 pyramid-wtforms = "*"
 pyramid-tm = "*"
 pymysql = "*"
+alembic = "*"
 
 [dev-packages]
 behave = "*"
