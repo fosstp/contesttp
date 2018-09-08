@@ -11,9 +11,11 @@ pyramid = "*"
 behave = "*"
 pyramid-debugtoolbar = "*"
 pytest = "*"
+pytest-cov = "*"
 waitress = "*"
 webtest = "*"
 pylint = "*"
+rope = "*"
 
 [requires]
 python_version = "3.5"
