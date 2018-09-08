@@ -11,6 +11,7 @@ pyramid-wtforms = "*"
 pyramid-tm = "*"
 pymysql = "*"
 alembic = "*"
+wtforms = "*"
 
 [dev-packages]
 behave = "*"
