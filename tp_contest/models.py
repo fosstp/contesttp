@@ -138,3 +138,6 @@ class CompetitionNews(BaseObject):
 
     # 作者
     manager = Column(Integer, ForeignKey('managers.id'))
+
+    # 狀態 ，預設為 0，1 為置頂
+    status = Column(Integer, nullable=False, default=0)
