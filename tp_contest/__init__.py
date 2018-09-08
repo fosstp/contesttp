@@ -13,6 +13,9 @@ def main(global_config, **settings):
     #from pyramid.session import SignedCookieSessionFactory
     #config.set_session_factory(SignedCookieSessionFactory(settings['secret_key']))
 
+    config.include('pyramid_tm')
+    config.include('pyramid_sqlalchemy')
+
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
     config.scan()
