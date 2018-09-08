@@ -9,6 +9,7 @@ pyramid-jinja2 = "*"
 pyramid-sqlalchemy = "*"
 pyramid-wtforms = "*"
 pyramid-tm = "*"
+pymysql = "*"
 
 [dev-packages]
 behave = "*"
