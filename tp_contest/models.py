@@ -1,6 +1,6 @@
 '''定義資料庫 ORM'''
 import hashlib
-from sqlalchemy import ForeighKey, String, Integer, Column
+from sqlalchemy import ForeignKey, String, Integer, Text, Column, Table
 from sqlalchemy.orm import relationship, backref
 from pyramid_sqlalchemy import BaseObject
 
@@ -40,6 +40,10 @@ class Manager(BaseAccount):
     # 帳號等級，0 代表最高管理者，1 代表活動管理者
     type = Column(Integer)
 
+    competition = relationship('Competition', backref='manager')
+
+    competition_news = relationship('CompetitionNews', backref='manager')
+
 class School(BaseAccount):
     '''學校帳號'''
 
@@ -47,3 +51,70 @@ class School(BaseAccount):
 
     # 學程，1 是幼兒園， 2 是國小， 3 是國中
     type = Column(Integer)
+
+    competition = relationship("Competition", secondary=schools_competition_table, back_populates="schools")
+
+class Competition(BaseObject):
+    '''比賽'''
+
+    __tablename__ = 'competition'
+
+    id = Column(Integer, primary_key=True)
+    
+    # 比賽名稱
+    name = Column(String)
+
+    # 管理者
+    manager_id = Column(Integer, ForeignKey('managers.id'))
+
+    schools = relationship("School", secondary=schools_competition_table, back_populates="competition")
+
+    sign_up = relationship('CompetitionSignUp', backref='competition')
+
+    news = relationship('CompetitionNews', backref='competition')
+
+schools_competition_table = Table('schools_competition', BaseObject.metadata,
+    Column('school_id', Integer, ForeignKey('schools.id')),
+    Column('competition_id', Integer, ForeignKey('competition.id'))
+)
+
+class CompetitionSignUp(BaseObject):
+    '''報名特定活動的紀錄'''
+
+    __tablename__ = 'competition_sign_up'
+
+    id = Column(Integer, primary_key=True)
+
+    # 學生名字
+    student_name = Column(String)
+
+    # 學生班級
+    student_class = Column(String)
+
+    # 指導老師 1
+    instructor1 = Column(String)
+
+    # 指導老師 2
+    instructor2 = Column(String)
+
+    # 歸屬哪一個競賽
+    competition_id = Column(Integer, ForeignKey('competition.id'))
+
+class CompetitionNews(BaseObject):
+    '''報名活動的消息公佈'''
+
+    __tablename__ = 'competition_news'
+
+    id = Column(Integer, primary_key=True)
+
+    # 最新消息標題
+    title = Column(String)
+
+    # 最新消息內容
+    content = Column(Text)
+
+    # 歸屬哪一個競賽
+    competition_id = Column(Integer, ForeignKey('competition.id'))
+
+    # 作者
+    manager = Column(Integer, ForeignKey('managers.id'))
