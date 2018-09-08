@@ -11,16 +11,16 @@ class BaseAccount:
     id = Column(Integer, primary_key=True)
 
     # 學校名稱
-    name = Column(String, unique=True)
+    name = Column(String(100), unique=True)
 
     # 學校帳號，國小是 a + 學校代碼（例如a300000），國中是 b + 學校代碼（例如b300000）
-    account = Column(String, unique=True)
+    account = Column(String(100), unique=True)
 
     # 電子郵件信箱
-    email = Column(String, nullable=False)
+    email = Column(String(100), nullable=False)
 
     # 密碼，外界應該靠 property 存取此欄位
-    _password = Column(String, nullable=False)
+    _password = Column(String(100), nullable=False)
 
     @property
     def password(self):
@@ -67,7 +67,7 @@ class Competition(BaseObject):
     id = Column(Integer, primary_key=True)
     
     # 比賽名稱
-    name = Column(String)
+    name = Column(String(100))
 
     # 管理者
     manager_id = Column(Integer, ForeignKey('managers.id'))
@@ -86,16 +86,16 @@ class CompetitionSignUp(BaseObject):
     id = Column(Integer, primary_key=True)
 
     # 學生名字
-    student_name = Column(String)
+    student_name = Column(String(100))
 
     # 學生班級
-    student_class = Column(String)
+    student_class = Column(String(100))
 
     # 指導老師 1
-    instructor1 = Column(String)
+    instructor1 = Column(String(100))
 
     # 指導老師 2
-    instructor2 = Column(String)
+    instructor2 = Column(String(100))
 
     # 歸屬哪一個競賽
     competition_id = Column(Integer, ForeignKey('competition.id'))
@@ -108,7 +108,7 @@ class CompetitionNews(BaseObject):
     id = Column(Integer, primary_key=True)
 
     # 最新消息標題
-    title = Column(String)
+    title = Column(String(100))
 
     # 最新消息內容
     content = Column(Text)
