@@ -103,6 +103,9 @@ class CompetitionSignUp(BaseObject):
     # 指導老師 2
     instructor2 = Column(String(100))
 
+    # 報名時間
+    signup_datetime = Column(DateTime, nullable=False)
+
     # 歸屬哪一個競賽
     competition_id = Column(Integer, ForeignKey('competition.id'))
 
