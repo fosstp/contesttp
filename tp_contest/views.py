@@ -1,7 +1,7 @@
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid_sqlalchemy import Session as DB
-from .models import Manager, School
+from .models import Manager, School, Competition
 from .security import need_permission
 
 
@@ -43,6 +43,7 @@ def login_post_view(request):
     return {'login_form': login_form}
 
 
-@view_config(route_name='list_activities', renderer='templates/list_activities.jinja2')
-def list_activities_view(request):
-    return {}
+@view_config(route_name='list_competition', renderer='templates/list_competition.jinja2')
+def list_competition_view(request):
+    competition = DB.query(Competition).all()
+    return {'competition': competition}
