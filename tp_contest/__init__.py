@@ -20,6 +20,7 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('login', '/login')
     config.add_route('list_competition', '/competition')
-    config.add_route('show_competition', '/competition/{competition_id}')
+    config.add_route('list_competition_news', '/competition/{competition_id}/news')
+    config.add_route('show_competition_news', '/competition/{competition_id}/news/{news_id}')
     config.scan()
     return config.make_wsgi_app()

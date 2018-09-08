@@ -26,13 +26,15 @@ def login_post_view(request):
     if login_form.validate():
         try:
             if login_form.account_type.data == 'manager':
-                manager = DB.query(Manager).filter_by(account=login_form.account.data).one()
+                manager = DB.query(Manager).filter_by(
+                    account=login_form.account.data).one()
                 if manager.verify_password(login_form.password.data):
                     request.session['account_type'] = 'admin' if manager.type == 0 else 'manager'
                     request.session['name'] = manager.name
                     request.session['account'] = manager.account
             elif login_form.account_type.data == 'school':
-                school = DB.query(School).filter_by(account=login_form.account.data).one()
+                school = DB.query(School).filter_by(
+                    account=login_form.account.data).one()
                 if school.verify_password(login_form.password.data):
                     request.session['account_type'] = 'school'
                     request.session['name'] = school.name
@@ -47,3 +49,14 @@ def login_post_view(request):
 def list_competition_view(request):
     competition = DB.query(Competition).all()
     return {'competition': competition}
+
+
+@view_config(route_name='list_competition_news', renderer='templates/list_competition_news.jinja2')
+def list_competition_news_view(request):
+    #competition = DB.query(Competition).filter_by(id=request.int(matchdict['competition_id'])).one()
+    #return {'competition': competition}
+    return {}
+
+@view_config(route_name='show_competition_news', renderer='templates/show_competition_news.jinja2')
+def show_competition_news_view(request):
+    return {}
