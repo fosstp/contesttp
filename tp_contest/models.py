@@ -1,5 +1,6 @@
 '''定義資料庫 ORM'''
 import hashlib
+import datetime
 from sqlalchemy import ForeignKey, String, Integer, Text, DateTime, Column, Table
 from sqlalchemy.orm import relationship, backref
 from pyramid_sqlalchemy import BaseObject
@@ -104,7 +105,7 @@ class CompetitionSignUp(BaseObject):
     instructor2 = Column(String(100))
 
     # 報名時間
-    signup_datetime = Column(DateTime, nullable=False)
+    signup_datetime = Column(DateTime, nullable=False, default=datetime.datetime.now)
 
     # 歸屬哪一個競賽
     competition_id = Column(Integer, ForeignKey('competition.id'))
@@ -121,6 +122,9 @@ class CompetitionNews(BaseObject):
 
     # 最新消息內容
     content = Column(Text)
+
+    # 發佈時間
+    publication_date = Column(DateTime, nullable=False, default=datetime.datetime.now)
 
     # 歸屬哪一個競賽
     competition_id = Column(Integer, ForeignKey('competition.id'))
