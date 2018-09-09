@@ -1,6 +1,6 @@
 '''定義資料庫 ORM'''
-import hashlib
 import datetime
+from passlib.hash import sha512_crypt
 from sqlalchemy import ForeignKey, String, Integer, Text, DateTime, Column, Table
 from sqlalchemy.orm import relationship, backref
 from pyramid_sqlalchemy import BaseObject
@@ -21,7 +21,7 @@ class BaseAccount:
     email = Column(String(100), nullable=False)
 
     # 密碼，外界應該靠 property 存取此欄位
-    _password = Column(String(100), nullable=False)
+    _password = Column(String(125), nullable=False)
 
     @property
     def password(self):
@@ -34,11 +34,11 @@ class BaseAccount:
     
     def gen_password_hash(self, value):
         '''產生密碼的 hash'''
-        return hashlib.sha512(value.encode('utf-8')).hexdigest()
+        return sha512_crypt.hash(value)
     
     def verify_password(self, value):
         '''驗證密碼'''
-        return True if self._password == self.gen_password_hash(value) else False
+        return sha512_crypt.verify(value, self._password)
 
 class Manager(BaseAccount, BaseObject):
     '''管理者帳號'''
@@ -46,7 +46,7 @@ class Manager(BaseAccount, BaseObject):
     __tablename__ = 'managers'
 
     # 帳號等級，0 代表最高管理者，1 代表活動管理者
-    type = Column(Integer)
+    type = Column(Integer, nullable=False, default=1)
 
     competition = relationship('Competition', backref='manager')
 
