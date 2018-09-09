@@ -48,9 +48,9 @@ class Manager(BaseAccount, BaseObject):
     # 帳號等級，0 代表最高管理者，1 代表活動管理者
     type = Column(Integer)
 
-    competition = relationship('Competition', backref='competition_manager')
+    competition = relationship('Competition', backref='manager')
 
-    competition_news = relationship('CompetitionNews', backref='competition_news_manager')
+    competition_news = relationship('CompetitionNews', backref='manager')
 
 schools_competition_table = Table('schools_competition', BaseObject.metadata,
     Column('school_id', Integer, ForeignKey('schools.id')),
@@ -137,7 +137,7 @@ class CompetitionNews(BaseObject):
     competition_id = Column(Integer, ForeignKey('competition.id'))
 
     # 作者
-    manager = Column(Integer, ForeignKey('managers.id'))
+    manager_id = Column(Integer, ForeignKey('managers.id'))
 
     # 狀態 ，預設為 0，1 為置頂
     status = Column(Integer, nullable=False, default=0)
