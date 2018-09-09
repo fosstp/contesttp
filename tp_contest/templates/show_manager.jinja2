@@ -1,0 +1,33 @@
+{% extends "base.jinja2" %}
+{% block list_competition_news_nav %} active{% endblock list_competition_news_nav %}
+{% block content %}
+<h2 class="mx-auto">編輯管理者</h2>
+<form action="" method="post">
+  <div class="form-group">
+    {{ manager_form.name.label }}
+    {{ manager_form.name(class='form-control')}}
+  </div>
+  <div class="form-group">
+    {{ manager_form.account.label }}
+    {{ manager_form.account(class='form-control', placeholder='輸入帳號')}}
+  </div>
+  <div class="form-group">
+    {{ manager_form.password.label }}
+    <input class="form-control" id="password" name="password" placeholder="輸入密碼" type="password" value="">
+  </div>
+  <div class="form-group">
+    {{ manager_form.password_confirm.label }}
+    <input class="form-control" id="password_confirm" name="password_confirm" placeholder="再次輸入密碼" type="password"
+      value="">
+  </div>
+  <div class="form-group">
+    {{ manager_form.email.label }}
+    {{ manager_form.email(class='form-control', placeholder='輸入 Email')}}
+  </div>
+  <div class="form-group">
+    {{ manager_form.type.label }}
+    {{ manager_form.type(class='form-control')}}
+  </div>
+  <button type="submit" class="btn btn-primary">修改</button>
+</form>
+{% endblock content%}

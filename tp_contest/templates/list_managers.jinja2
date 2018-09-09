@@ -1,0 +1,27 @@
+{% extends "base.jinja2" %}
+{% block list_competition_news_nav %} active{% endblock list_competition_news_nav %}
+{% block content %}
+<h2 class="mx-auto">管理者列表</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">序號</th>
+      <th scope="col">名稱</th>
+      <th scope="col">帳號</th>
+      <th scope="col">Email</th>
+      <th scope="col">帳號等級</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for manager in managers %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td><a href="/manager/2">{{ manager.name }}</a></td>
+        <td>{{ manager.account }}</td>
+        <td>{{ manager.email }}</td>
+        <td>{% if manager.type == 0 %}最高管理者{% else %}活動管理者{% endif %}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content%}

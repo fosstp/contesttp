@@ -23,5 +23,7 @@ def main(global_config, **settings):
     config.add_route('list_competition', '/competition')
     config.add_route('list_competition_news', '/competition/{competition_id}/news')
     config.add_route('show_competition_news', '/competition/{competition_id}/news/{news_id}')
+    config.add_route('list_managers', '/managers')
+    config.add_route('show_manager', '/manager/{manager_id}')
     config.scan()
     return config.make_wsgi_app()
