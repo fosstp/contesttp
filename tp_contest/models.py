@@ -21,7 +21,7 @@ class BaseAccount:
     email = Column(String(100), nullable=False)
 
     # 密碼，外界應該靠 property 存取此欄位
-    _password = Column(String(125), nullable=False)
+    _password = Column('password', String(125), nullable=False)
 
     @property
     def password(self):
