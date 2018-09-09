@@ -12,6 +12,7 @@ pyramid-tm = "*"
 pymysql = "*"
 alembic = "*"
 wtforms = "*"
+passlib = "*"
 
 [dev-packages]
 behave = "*"
