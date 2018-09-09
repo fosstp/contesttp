@@ -39,7 +39,7 @@ def login_post_view(request):
                     request.session['account_type'] = 'school'
                     request.session['name'] = school.name
                     request.session['account'] = school.account
-            return HTTPFound(location=request.route_url('home'), headers=request.headers)
+            return HTTPFound(location=request.route_url('home'), headers=request.response.headers)
         except NoResultFound:
             request.session.flash('帳密認証錯誤，請重新輸入', 'error')
     return {'login_form': login_form}
