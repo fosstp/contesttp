@@ -45,6 +45,13 @@ def login_post_view(request):
     return {'login_form': login_form}
 
 
+@view_config(route_name='logout')
+def logout_view(request):
+    for i in 'account_type', 'name', 'account':
+        del request.session[i]
+    return HTTPFound(location=request.route_url('home'))
+
+
 @view_config(route_name='list_competition', renderer='templates/list_competition.jinja2')
 def list_competition_view(request):
     competition = DB.query(Competition).all()
