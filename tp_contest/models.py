@@ -52,9 +52,9 @@ class Manager(BaseAccount, BaseObject):
 
     competition_news = relationship('CompetitionNews', backref='manager')
 
-schools_competition_table = Table('schools_competition', BaseObject.metadata,
+schools_competition_signup_table = Table('schools_competition_signup', BaseObject.metadata,
     Column('school_id', Integer, ForeignKey('schools.id')),
-    Column('competition_id', Integer, ForeignKey('competition.id'))
+    Column('competition_signup_id', Integer, ForeignKey('competition_signup.id'))
 )
 
 class School(BaseAccount, BaseObject):
@@ -65,7 +65,7 @@ class School(BaseAccount, BaseObject):
     # 學程，1 是幼兒園， 2 是國小， 3 是國中
     type = Column(Integer)
 
-    competition = relationship("Competition", secondary=schools_competition_table, back_populates="schools")
+    competition_signup = relationship("CompetitionSignUp", secondary=schools_competition_signup_table, back_populates="schools")
 
 class Competition(BaseObject):
     '''比賽'''
@@ -86,16 +86,14 @@ class Competition(BaseObject):
     # 管理者
     manager_id = Column(Integer, ForeignKey('managers.id'))
 
-    schools = relationship("School", secondary=schools_competition_table, back_populates="competition")
-
-    sign_up = relationship('CompetitionSignUp', backref='competition')
+    signup = relationship('CompetitionSignUp', backref='competition')
 
     news = relationship('CompetitionNews', backref='competition')
 
 class CompetitionSignUp(BaseObject):
     '''報名特定活動的紀錄'''
 
-    __tablename__ = 'competition_sign_up'
+    __tablename__ = 'competition_signup'
 
     id = Column(Integer, primary_key=True)
 
@@ -116,6 +114,9 @@ class CompetitionSignUp(BaseObject):
 
     # 歸屬哪一個競賽
     competition_id = Column(Integer, ForeignKey('competition.id'))
+
+    # 歸屬哪一個學校
+    school_id = Column(Integer, ForeignKey('schools.id'))
 
 class CompetitionNews(BaseObject):
     '''報名活動的消息公佈'''
