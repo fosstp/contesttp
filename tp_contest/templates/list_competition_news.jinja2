@@ -2,11 +2,14 @@
 {% block list_competition_news_nav %} active{% endblock list_competition_news_nav %}
 {% block content %}
 <h2 class="mx-auto">107 Scratch 競賽</h2>
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">最新消息</li>
-  </ol>
-</nav>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="{{ request.route_url('list_competition_news', competition_id=competition.id) }}">最新消息</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ request.route_url('list_signup_per_competition', competition_id=competition.id) }}">報名列表</a>
+  </li>
+</ul>
 <table class="table table-bordered">
   <thead>
     <tr>

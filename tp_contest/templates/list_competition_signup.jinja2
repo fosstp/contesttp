@@ -1,0 +1,45 @@
+{% extends "base.jinja2" %}
+{% block content %}
+<h2 class="mx-auto">107 Scratch 競賽</h2>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" href="{{ request.route_url('list_competition_news', competition_id=competition_id) }}">最新消息</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="{{ request.route_url('list_signup_per_competition', competition_id=competition_id) }}">報名列表</a>
+  </li>
+</ul>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">序號</th>
+      {% if request.session['account_type'] and request.session['account_type'] != 'school' %}
+        <th scope="col">學校名稱</th>
+      {% endif %}
+      <th scope="col">學生名稱</th>
+      <th scope="col">學生班級</th>
+      <th scope="col">指導老師一</th>
+      <th scope="col">指導老師二</th>
+      <th scope="col">報名時間</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for each_signup in signup_list %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        {% if request.session['account_type'] and request.session['account_type'] != 'school' %}
+          <td>{{ each_signup.school.name }}</td>
+        {% endif %}
+        <td>{{ each_signup.student_name }}</td>
+        <td>{{ each_signup.student_class }}</td>
+        <td>{{ each_signup.instructor1 }}</td>
+        <td>{{ each_signup.instructor2 }}</td>
+        <td>{{ each_signup.signup_datetime }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if request.session['account_type'] == 'school' %}
+  <a href="{{ request.route_url('signup_competition', competition_id=competition_id) }}" class="btn btn-primary">報名本校學生</a>
+{% endif %}
+{% endblock content%}

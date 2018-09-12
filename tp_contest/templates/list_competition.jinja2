@@ -2,8 +2,10 @@
 {% block list_competition_nav %} active{% endblock list_competition_nav %}
 {% block content %}
 <h2>競賽活動管理</h2>
-<a href="{{ request.route_url('add_competition') }}" class="btn btn-primary">新增競賽活動</a>
-<table class="table table-bordered mt-3">
+{% if request.session['account_type'] == 'admin' %}
+  <a href="{{ request.route_url('add_competition') }}" class="btn btn-primary">新增競賽活動</a>
+{% endif %}
+  <table class="table table-bordered mt-3">
   <thead>
     <tr>
       <th scope="col">序號</th>
@@ -29,5 +31,7 @@
     {% endfor %}
   </tbody>
 </table>
-<a href="{{ request.route_url('add_competition') }}" class="btn btn-primary">新增競賽活動</a>
-{% endblock content%}
+{% if request.session['account_type'] == 'admin' %}
+  <a href="{{ request.route_url('add_competition') }}" class="btn btn-primary">新增競賽活動</a>
+{% endif %}
+  {% endblock content%}

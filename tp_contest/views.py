@@ -2,7 +2,7 @@ from datetime import datetime
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid_sqlalchemy import Session as DB
-from .models import Manager, School, Competition
+from .models import Manager, School, Competition, CompetitionSignUp
 from .security import need_permission
 
 
@@ -76,9 +76,8 @@ def add_competition_view(request):
 
 @view_config(route_name='list_competition_news', renderer='templates/list_competition_news.jinja2')
 def list_competition_news_view(request):
-    #competition = DB.query(Competition).filter_by(id=request.int(matchdict['competition_id'])).one()
-    #return {'competition': competition}
-    return {}
+    competition = DB.query(Competition).filter_by(id=int(request.matchdict['competition_id'])).one()
+    return {'competition': competition}
 
 @view_config(route_name='show_competition_news', renderer='templates/show_competition_news.jinja2')
 def show_competition_news_view(request):
@@ -98,3 +97,14 @@ def show_manager_view(request):
     manager = DB.query(Manager).filter_by(id=int(request.matchdict['manager_id'])).one()
     manager_form = ManagerForm(obj=manager)
     return {'manager_form': manager_form}
+
+@view_config(route_name='list_signup_per_competition', renderer='templates/list_competition_signup.jinja2')
+def list_signup_per_competition_view(request):
+    competition_id = int(request.matchdict['competition_id'])
+    signup_list = DB.query(CompetitionSignUp).filter_by(competition_id=competition_id).all()
+    return {'signup_list': signup_list, 'competition_id': competition_id}
+
+
+@view_config(route_name='signup_competition', renderer='templates/signup_competition.jinja2')
+def signup_competition_view(request):
+    pass
