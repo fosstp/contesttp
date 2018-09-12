@@ -32,6 +32,7 @@ def login_post_view(request):
                 if manager.verify_password(login_form.password.data):
                     request.session['account_type'] = 'admin' if manager.type == 0 else 'manager'
                     request.session['name'] = manager.name
+                    request.session['id'] = manager.id
                     request.session['account'] = manager.account
             elif login_form.account_type.data == 'school':
                 school = DB.query(School).filter_by(
@@ -39,6 +40,7 @@ def login_post_view(request):
                 if school.verify_password(login_form.password.data):
                     request.session['account_type'] = 'school'
                     request.session['name'] = school.name
+                    request.session['id'] = school.id
                     request.session['account'] = school.account
             return HTTPFound(location=request.route_url('home'), headers=request.response.headers)
         except NoResultFound:
@@ -105,6 +107,17 @@ def list_signup_per_competition_view(request):
     return {'signup_list': signup_list, 'competition_id': competition_id}
 
 
+@view_config(route_name='list_signup_per_competition_school', renderer='templates/list_competition_signup.jinja2')
+def list_signup_per_competition_school_view(request):
+    competition_id = int(request.matchdict['competition_id'])
+    school_signup_list = DB.query(CompetitionSignUp).filter_by(competition_id=competition_id).filter_by(school_id=request.session['id']).all()
+    signup_limit = DB.query(Competition).filter_by(id=competition_id).one().signup_limit
+    return {'signup_list': school_signup_list, 'competition_id': competition_id, 'signup_limit': signup_limit}
+
+
 @view_config(route_name='signup_competition', renderer='templates/signup_competition.jinja2')
 def signup_competition_view(request):
-    pass
+    from .forms import CompetitionSignUpForm
+
+    competition_signup_form = CompetitionSignUpForm()
+    return {'competition_signup_form': competition_signup_form}

@@ -39,7 +39,7 @@
     {% endfor %}
   </tbody>
 </table>
-{% if request.session['account_type'] == 'school' %}
+{% if request.session['account_type'] == 'school' and signup_list|length < signup_limit %}
   <a href="{{ request.route_url('signup_competition', competition_id=competition_id) }}" class="btn btn-primary">報名本校學生</a>
 {% endif %}
 {% endblock content%}

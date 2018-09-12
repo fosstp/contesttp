@@ -24,3 +24,10 @@ class CompetitionForm(Form):
     begin_signup_datetime = DateTimeField('開始報名時間', [InputRequired('開始報名時間為必填欄位')])
     end_signup_datetime = DateTimeField('結束報名時間', [InputRequired('結束報名時間為必填欄位')])
     manager = SelectField('管理者', [InputRequired('管理者為必選欄位')])
+
+
+class CompetitionSignUpForm(Form):
+    student_name = StringField('學生名字', [InputRequired('學生名字為必填欄位')])
+    student_class = StringField('學生班級', [InputRequired('學生班級為必填欄位')])
+    instructor1 = StringField('指導老師1', [InputRequired('指導老師1為必填欄位')])
+    instructor2 = StringField('指導老師2', [InputRequired('指導老師2為必填欄位')])
