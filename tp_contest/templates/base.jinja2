@@ -30,8 +30,8 @@
             {{ request.session['name'] }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ request.route_url('list_admin_competition') }}">競賽活動管理</a>
             <a class="dropdown-item" href="{{ request.route_url('list_managers') }}">活動管理者管理</a>
+            <a class="dropdown-item" href="{{ request.route_url('list_admin_competition') }}">競賽活動管理</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ request.route_url('logout') }}">登出</a>
           </div>
