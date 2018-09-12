@@ -19,18 +19,19 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item{% block list_competition_nav %}{% endblock list_competition_nav %}">
-          <a class="nav-link" href="{{ request.route_url('list_competition') }}">競賽列表</a>
+          <a class="nav-link" href="{{ request.route_url('list_guest_competition') }}">競賽列表</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        {% if request.session['name'] %}
+        {% if request.session['account_type'] == 'admin' %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             {{ request.session['name'] }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ request.route_url('list_managers') }}">管理者列表</a>
+            <a class="dropdown-item" href="{{ request.route_url('list_admin_competition') }}">競賽活動管理</a>
+            <a class="dropdown-item" href="{{ request.route_url('list_managers') }}">活動管理者管理</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ request.route_url('logout') }}">登出</a>
           </div>

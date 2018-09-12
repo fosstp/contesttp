@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, PasswordField, SelectField
+from wtforms import Form, StringField, PasswordField, SelectField, DateTimeField
 from wtforms.validators import InputRequired, EqualTo
 
 
@@ -17,3 +17,10 @@ class ManagerForm(Form):
     email = StringField('Email', [InputRequired('Email 為必填欄位')])
     type = SelectField('帳號類型', [InputRequired('帳號類型為必選欄位')], choices=[
                                ('0', '最高管理者'), ('1', '活動管理者')])
+
+
+class CompetitionForm(Form):
+    name = StringField('競賽活動名稱', [InputRequired('競賽活動名稱為必填欄位')])
+    begin_signup_datetime = DateTimeField('開始報名時間', [InputRequired('開始報名時間為必填欄位')])
+    end_signup_datetime = DateTimeField('結束報名時間', [InputRequired('結束報名時間為必填欄位')])
+    manager = SelectField('管理者', [InputRequired('管理者為必選欄位')])

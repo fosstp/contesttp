@@ -1,3 +1,4 @@
+from datetime import datetime
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from pyramid_sqlalchemy import Session as DB
@@ -52,10 +53,25 @@ def logout_view(request):
     return HTTPFound(location=request.route_url('home'))
 
 
-@view_config(route_name='list_competition', renderer='templates/list_competition.jinja2')
-def list_competition_view(request):
+@view_config(route_name='list_guest_competition', renderer='templates/list_competition.jinja2')
+def list_guest_competition_view(request):
+    # 匿名使用者，只能看尚未過期的競賽列表
+    competition = DB.query(Competition).filter(datetime.now()<Competition.end_signup_datetime).all()
+    return {'competition': competition}
+
+@view_config(route_name='list_admin_competition', renderer='templates/list_competition.jinja2')
+def list_admin_competition_view(request):
+    # 最高管理者可看全部列表
     competition = DB.query(Competition).all()
     return {'competition': competition}
+
+@view_config(route_name='add_competition', renderer='templates/add_competition.jinja2')
+def add_competition_view(request):
+    from .forms import CompetitionForm
+
+    competition_form = CompetitionForm()
+    competition_form.manager.choices = [(str(manager.id), manager.name) for manager in DB.query(Manager).filter_by(type=1).all()]
+    return {'competition_form': competition_form}
 
 
 @view_config(route_name='list_competition_news', renderer='templates/list_competition_news.jinja2')

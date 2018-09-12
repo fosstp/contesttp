@@ -1,0 +1,23 @@
+{% extends "base.jinja2" %}
+{% block content %}
+<h2 class="mx-auto">新增競賽活動</h2>
+<form action="" method="post">
+  <div class="form-group">
+    {{ competition_form.name.label }}
+    {{ competition_form.name(class='form-control')}}
+  </div>
+  <div class="form-group">
+    {{ competition_form.begin_signup_datetime.label }}
+    {{ competition_form.begin_signup_datetime(class='form-control', placeholder='例如：2018-01-01 12:00:00')}}
+  </div>
+  <div class="form-group">
+    {{ competition_form.end_signup_datetime.label }}
+    {{ competition_form.end_signup_datetime(class='form-control', placeholder='例如：2018-12-31 12:00:00')}}
+    </div>
+  <div class="form-group">
+    {{ competition_form.manager.label }}
+    {{ competition_form.manager(class='form-control') }}
+  </div>
+  <button type="submit" class="btn btn-primary">新增</button>
+</form>
+{% endblock content%}

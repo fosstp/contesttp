@@ -4,6 +4,7 @@
 <div class="alert alert-dark" role="alert">
   競賽活動列表
 </div>
+<a href="{{ request.route_url('add_competition') }}" class="btn btn-primary">新增競賽活動</a>
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -11,6 +12,9 @@
       <th scope="col">競賽名稱</th>
       <th scope="col">開始報名日期</th>
       <th scope="col">結束報名日期</th>
+      {% if request.session['account_type'] == 'admin' %}
+        <th scope="col">動作</th>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -20,8 +24,12 @@
         <td>{{ each_competition.name }}</td>
         <td>{{ each_competition.begin_signup_datetime }}</td>
         <td>{{ each_competition.end_signup_datetime }}</td>
+        {% if request.session['account_type'] == 'admin' %}
+          <td><a type="button" class="btn btn-primary">修改</a></td>
+        {% endif %}
       </tr>
     {% endfor %}
   </tbody>
 </table>
+<a href="{{ request.route_url('add_competition') }}" class="btn btn-primary">新增競賽活動</a>
 {% endblock content%}
