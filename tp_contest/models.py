@@ -61,6 +61,9 @@ class School(BaseAccount, BaseObject):
     # 學程，1 是幼兒園， 2 是國小， 3 是國中
     type = Column(Integer)
 
+    # 狀態， 0 代表尚未改密碼， 1 代表已改密碼，預設為 0
+    status = Column(Integer, nullable=False, default=0)
+
     competition_signup = relationship("CompetitionSignUp", backref="school")
 
 class Competition(BaseObject):
