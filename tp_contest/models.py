@@ -83,7 +83,7 @@ class Competition(BaseObject):
     end_signup_datetime = Column(DateTime, nullable=False)
 
     # 每校報名人數限制
-    limit = Column(Integer, nullable=False)
+    signup_limit = Column(Integer, nullable=False, default=2)
 
     # 管理者
     manager_id = Column(Integer, ForeignKey('managers.id'))
