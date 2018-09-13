@@ -1,22 +1,27 @@
 {% extends "base.jinja2" %}
 {% block list_competition_news_nav %} active{% endblock list_competition_news_nav %}
 {% block content %}
-<h2 class="mx-auto">107 Scratch 競賽</h2>
+<h2 class="mx-auto">{{ competition_news.competition.name }}</h2>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/competition/1/news">最新消息</a></li>
-    <li class="breadcrumb-item active" aria-current="page">新聞標題</li>
+    <li class="breadcrumb-item"><a href="{{ request.route_url('list_competition_news', competition_id=competition_news.competition.id) }}">最新消息</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ competition_news.title }}</li>
   </ol>
 </nav>
 <div class="card">
   <div class="card-header">
-    新聞標題
+    {{ competition_news.title }}
   </div>
   <div class="card-body">
-    <p class="card-text">哈哈哈哈哈</a>
+    <p class="card-text">{{ competition_news.content }}</a>
   </div>
   <div class="card-footer text-muted">
     附件下載
+    <ul>
+      {% for each_file in competition_news.files %}
+        <li><a href="{{ request.static_url('tp_contest:static/{}/{}'.format(competition_news.competition.id, each_file.name)) }}">{{ each_file.name }}</a></li>
+      {% endfor %}
+    </ul>
   </div>
 </div>
 {% endblock content%}

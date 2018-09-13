@@ -89,7 +89,8 @@ def list_competition_news_view(request):
 
 @view_config(route_name='show_competition_news', renderer='templates/show_competition_news.jinja2')
 def show_competition_news_view(request):
-    return {}
+    competition_news = DB.query(CompetitionNews).get(int(request.matchdict['news_id']))
+    return {'competition_news': competition_news}
 
 
 @view_config(route_name='list_managers', renderer='templates/list_managers.jinja2')
