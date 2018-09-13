@@ -8,7 +8,11 @@ from .security import need_permission
 
 @view_config(route_name='home', renderer='templates/home.jinja2')
 def home_view(request):
-    return {}
+    account_type = request.session.get('account_type', None)
+    if account_type and account_type in ['admin', 'manager']:
+        return HTTPFound(location=request.route_url('list_admin_competition'), headers=request.response.headers)
+    else:
+        return HTTPFound(location=request.route_url('list_guest_competition'), headers=request.response.headers)
 
 
 @view_config(route_name='login', renderer='templates/login.jinja2', request_method='GET')
@@ -34,6 +38,7 @@ def login_post_view(request):
                     request.session['name'] = manager.name
                     request.session['id'] = manager.id
                     request.session['account'] = manager.account
+                return HTTPFound(location=request.route_url('list_admin_competition'), headers=request.response.headers)
             elif login_form.account_type.data == 'school':
                 school = DB.query(School).filter_by(
                     account=login_form.account.data).one()
@@ -42,7 +47,7 @@ def login_post_view(request):
                     request.session['name'] = school.name
                     request.session['id'] = school.id
                     request.session['account'] = school.account
-            return HTTPFound(location=request.route_url('home'), headers=request.response.headers)
+                return HTTPFound(location=request.route_url('list_guest_competition'), headers=request.response.headers)
         except NoResultFound:
             request.session.flash('帳密認証錯誤，請重新輸入', 'error')
     return {'login_form': login_form}
@@ -103,16 +108,19 @@ def show_manager_view(request):
 @view_config(route_name='list_signup_per_competition', renderer='templates/list_competition_signup.jinja2')
 def list_signup_per_competition_view(request):
     competition_id = int(request.matchdict['competition_id'])
+    competition = DB.query(Competition).get(competition_id)
     signup_list = DB.query(CompetitionSignUp).filter_by(competition_id=competition_id).all()
-    return {'signup_list': signup_list, 'competition_id': competition_id}
+    signup_limit = DB.query(Competition).filter_by(id=competition_id).one().signup_limit
+    return {'competition': competition, 'signup_list': signup_list, 'competition_id': competition_id, 'signup_limit': signup_limit}
 
 
 @view_config(route_name='list_signup_per_competition_school', renderer='templates/list_competition_signup.jinja2')
 def list_signup_per_competition_school_view(request):
     competition_id = int(request.matchdict['competition_id'])
+    competition = DB.query(Competition).get(competition_id)
     school_signup_list = DB.query(CompetitionSignUp).filter_by(competition_id=competition_id).filter_by(school_id=request.session['id']).all()
     signup_limit = DB.query(Competition).filter_by(id=competition_id).one().signup_limit
-    return {'signup_list': school_signup_list, 'competition_id': competition_id, 'signup_limit': signup_limit}
+    return {'competition': competition, 'signup_list': school_signup_list, 'competition_id': competition_id, 'signup_limit': signup_limit}
 
 
 @view_config(route_name='signup_competition', renderer='templates/signup_competition.jinja2', request_method='GET')

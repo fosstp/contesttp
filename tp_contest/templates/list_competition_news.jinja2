@@ -1,7 +1,7 @@
 {% extends "base.jinja2" %}
 {% block list_competition_news_nav %} active{% endblock list_competition_news_nav %}
 {% block content %}
-<h2 class="mx-auto">107 Scratch 競賽</h2>
+<h2 class="mx-auto">{{ competition.name }}</h2>
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" href="{{ request.route_url('list_competition_news', competition_id=competition.id) }}">最新消息</a>
@@ -24,12 +24,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td><a href="/competition/1/news/8">開始報名囉</a></td>
-      <td>2018/01/01 12:00</td>
-      <td>濱江國小</td>
-    </tr>
+    {% for each_news in competition.news %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td><a href="/competition/1/news/8">{{ each_news.title }}</a></td>
+        <td>{{ each_news.publication_date }}</td>
+        <td>{{ each_news.manager.name }}</td>
+      </tr>
+    {% endfor %}
   </tbody>
 </table>
 {% endblock content%}
