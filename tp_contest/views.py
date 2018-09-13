@@ -48,7 +48,10 @@ def login_post_view(request):
                     request.session['name'] = school.name
                     request.session['id'] = school.id
                     request.session['account'] = school.account
-                return HTTPFound(location=request.route_url('list_guest_competition'), headers=request.response.headers)
+                if school.status == 0:
+                    return HTTPFound(location=request.route_url('change_password'), headers=request.response.headers)
+                else:
+                    return HTTPFound(location=request.route_url('list_guest_competition'), headers=request.response.headers)
         except NoResultFound:
             request.session.flash('帳密認証錯誤，請重新輸入', 'error')
     return {'login_form': login_form}
@@ -218,3 +221,32 @@ def delete_competition_news_view(request):
     DB.query(File).filter_by(competition_news_id=competition_news_id).delete()
     DB.query(CompetitionNews).filter_by(id=competition_news_id).delete()
     return HTTPFound(location=request.route_url('list_competition_news', competition_id=competition_id), headers=request.response.headers)
+
+
+@view_config(route_name='change_password', renderer='templates/change_password.jinja2', request_method='GET')
+def change_password_get_view(request):
+    from .forms import PasswordForm
+
+    return {'password_form': PasswordForm()}
+
+
+@view_config(route_name='change_password', renderer='templates/change_password.jinja2', request_method='POST')
+@need_permission('school')
+def change_password_post_view(request):
+    from .forms import PasswordForm
+
+    password_form = PasswordForm(request.POST)
+    if password_form.validate():
+        school = DB.query(School).get(request.session['id'])
+        if school.verify_password(password_form.old_password.data):
+            school.password = password_form.new_password.data
+            school.status = 1
+            DB.add(school)
+            return HTTPFound(location=request.route_url('list_guest_competition'), headers=request.response.headers)
+        else:
+            request.session.flash('密碼錯誤，請確認舊密碼正確', 'error')
+            return {'password_form': password_form}
+    else:
+        print('d')
+        request.session.flash('密碼錯誤，請確認舊密碼正確，兩次新密碼輸入相同', 'error')
+        return {'password_form': password_form}

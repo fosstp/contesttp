@@ -39,3 +39,9 @@ class CompetitionNewsForm(Form):
     content = TextAreaField('內容', [InputRequired('內容為必填欄位')])
     files = MultipleFileField('附件')
     is_sticky = BooleanField('是否置頂')
+
+
+class PasswordForm(Form):
+    old_password = PasswordField('舊密碼', [InputRequired('舊密碼為必填欄位')])
+    new_password = PasswordField('新密碼', [InputRequired('新密碼為必填欄位')])
+    new_password_confirm = PasswordField('再次輸入新密碼', [EqualTo('new_password', '新密碼輸入必須一致')])
