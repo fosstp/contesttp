@@ -120,6 +120,16 @@ class CompetitionSignUp(BaseObject):
     # 歸屬哪一個學校
     school_id = Column(Integer, ForeignKey('schools.id'))
 
+
+class File(BaseObject):
+    '''上傳的檔案'''
+
+    __tablename__ = 'files'
+
+    id = Column(Integer, primary_key=True)
+
+    competition_news_id = Column(Integer, ForeignKey('competition_news.id'))
+
 class CompetitionNews(BaseObject):
     '''報名活動的消息公佈'''
 
@@ -135,6 +145,8 @@ class CompetitionNews(BaseObject):
 
     # 發佈時間
     publication_date = Column(DateTime, nullable=False, default=datetime.datetime.now)
+
+    files = relationship('File', backref='competition_news')
 
     # 歸屬哪一個競賽
     competition_id = Column(Integer, ForeignKey('competition.id'))
