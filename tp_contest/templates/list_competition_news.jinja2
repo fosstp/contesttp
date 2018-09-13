@@ -29,11 +29,14 @@
     {% for each_news in competition.news %}
       <tr>
         <th scope="row">{{ loop.index }}</th>
-        <td><a href="/competition/1/news/8">{{ each_news.title }}</a></td>
+        <td><a href="{{ request.route_url('show_competition_news', competition_id=competition.id, news_id=each_news.id) }}">{{ each_news.title }}</a></td>
         <td>{{ each_news.publication_date }}</td>
         <td>{{ each_news.manager.name }}</td>
       </tr>
     {% endfor %}
   </tbody>
 </table>
+{% if request.session['account_type'] == 'manager' and request.session['id'] == competition.manager_id %}
+  <a href="{{ request.route_url('add_competition_news', competition_id=competition.id) }}" class="btn btn-primary">發佈消息</a>
+{% endif %}
 {% endblock content%}

@@ -1,8 +1,9 @@
+import os
 from datetime import datetime
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPForbidden
 from pyramid_sqlalchemy import Session as DB
-from .models import Manager, School, Competition, CompetitionSignUp
+from .models import Manager, School, Competition, CompetitionSignUp, CompetitionNews, File
 from .security import need_permission
 
 
@@ -147,3 +148,53 @@ def signup_competition_post_view(request):
         DB.add(signup)
         return HTTPFound(location=request.route_url('list_signup_per_competition_school', competition_id=competition_id), headers=request.response.headers)
     return {'competition_signup_form': competition_signup_form}
+
+
+@view_config(route_name='add_competition_news', renderer='templates/add_competition_news.jinja2', request_method='GET')
+@need_permission('manager')
+def add_competition_news_get_view(request):
+    from .forms import CompetitionNewsForm
+
+    competition_news_form = CompetitionNewsForm()
+    return {'competition_news_form': competition_news_form}
+
+
+@view_config(route_name='add_competition_news', renderer='templates/add_competition_news.jinja2', request_method='POST')
+@need_permission('manager')
+def add_competition_news_post_view(request):
+    import random, string, shutil
+    import pkg_resources
+    from .forms import CompetitionNewsForm
+
+    competition_news_form = CompetitionNewsForm(request.POST)
+    if competition_news_form.validate():
+        competition_id = int(request.matchdict['competition_id'])
+        if DB.query(Competition).get(competition_id).manager_id != request.session['id']:
+            return HTTPForbidden()
+        competition_news = CompetitionNews()
+        competition_news_form.populate_obj(competition_news)
+        competition_news.competition_id = competition_id
+        competition_news.manager_id = request.session['id']
+        if competition_news_form.is_sticky.data:
+            competition_news.status = 1
+        # 處理上傳檔案
+        if competition_news_form.files.data:
+            file_list = request.POST.getall('files')
+            dst_base_dir = pkg_resources.resource_filename('tp_contest', 'static/upload_files')
+            if not os.path.exists(dst_base_dir):
+                os.mkdir(dst_base_dir)
+            competition_base_dir = os.path.join(dst_base_dir, str(competition_id))
+            if not os.path.exists(competition_base_dir):
+                os.mkdir(competition_base_dir)
+            for each_file in file_list:
+                dst_file_name = '{0}_{1}'.format(''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5)), each_file.filename)
+                dst_file_path = os.path.join(competition_base_dir, dst_file_name)
+                each_file.file.seek(0)
+                with open(dst_file_path, 'w') as dst:
+                    shutil.copyfileobj(each_file.file, dst)
+                file_model = File()
+                file_model.name = dst_file_name
+                competition_news.files.append(file_model)
+        return HTTPFound(location=request.route_url('list_competition_news', competition_id=competition_id), headers=request.response.headers)
+    else:    
+        return {'competition_news_form': competition_news_form}

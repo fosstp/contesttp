@@ -1,4 +1,5 @@
-from wtforms import Form, StringField, PasswordField, SelectField, DateTimeField
+from wtforms import (Form, StringField, PasswordField, SelectField, DateTimeField,
+                     TextAreaField, MultipleFileField, BooleanField)
 from wtforms.validators import InputRequired, EqualTo
 
 
@@ -31,3 +32,10 @@ class CompetitionSignUpForm(Form):
     student_class = StringField('學生班級', [InputRequired('學生班級為必填欄位')])
     instructor1 = StringField('指導老師1', [InputRequired('指導老師1為必填欄位')])
     instructor2 = StringField('指導老師2', [InputRequired('指導老師2為必填欄位')])
+
+
+class CompetitionNewsForm(Form):
+    title = StringField('標題', [InputRequired('標題為必填欄位')])
+    content = TextAreaField('內容', [InputRequired('內容為必填欄位')])
+    files = MultipleFileField('附件')
+    is_sticky = BooleanField('是否置頂')

@@ -128,6 +128,9 @@ class File(BaseObject):
 
     id = Column(Integer, primary_key=True)
 
+    # 檔名
+    name = Column(String(100), nullable=False)
+
     competition_news_id = Column(Integer, ForeignKey('competition_news.id'))
 
 class CompetitionNews(BaseObject):
