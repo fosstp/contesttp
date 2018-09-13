@@ -6,6 +6,7 @@
   <li class="nav-item">
     <a class="nav-link active" href="{{ request.route_url('list_competition_news', competition_id=competition.id) }}">最新消息</a>
   </li>
+  {% if request.session['account_type'] %}
   <li class="nav-item">
     {% if request.session['account_type'] != 'school'%}
       <a class="nav-link" href="{{ request.route_url('list_signup_per_competition', competition_id=competition.id) }}">報名列表</a>
@@ -13,6 +14,7 @@
     <a class="nav-link" href="{{ request.route_url('list_signup_per_competition_school', competition_id=competition.id) }}">報名列表</a>
     {% endif %}
   </li>
+  {% endif %}
 </ul>
 <table class="table table-bordered">
   <thead>

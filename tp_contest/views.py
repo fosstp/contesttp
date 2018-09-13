@@ -106,6 +106,7 @@ def show_manager_view(request):
     return {'manager_form': manager_form}
 
 @view_config(route_name='list_signup_per_competition', renderer='templates/list_competition_signup.jinja2')
+@need_permission('manager')
 def list_signup_per_competition_view(request):
     competition_id = int(request.matchdict['competition_id'])
     competition = DB.query(Competition).get(competition_id)
@@ -115,6 +116,7 @@ def list_signup_per_competition_view(request):
 
 
 @view_config(route_name='list_signup_per_competition_school', renderer='templates/list_competition_signup.jinja2')
+@need_permission('school')
 def list_signup_per_competition_school_view(request):
     competition_id = int(request.matchdict['competition_id'])
     competition = DB.query(Competition).get(competition_id)

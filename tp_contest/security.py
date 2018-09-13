@@ -6,7 +6,9 @@ def need_permission(account_type):
 
     def check_permission(func):
         def access_or_forbidden(request):
-            if account_type == request.session.get('account_type', None):
+            current_user_type = request.session.get('account_type', None)
+            # bypass admin
+            if current_user_type in ['admin', account_type]:
                 return func(request)
             else:
                 return HTTPForbidden()
