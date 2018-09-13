@@ -10,16 +10,16 @@
 </nav>
 <div class="card">
   <div class="card-header">
-    {{ competition_news.title }}
+    標題：{{ competition_news.title }}
   </div>
   <div class="card-body">
-    <p class="card-text">{{ competition_news.content }}</a>
+    <p class="card-text">內容：{{ competition_news.content }}</a>
   </div>
   <div class="card-footer text-muted">
     附件下載
     <ul>
       {% for each_file in competition_news.files %}
-        <li><a href="{{ request.static_url('tp_contest:static/{}/{}'.format(competition_news.competition.id, each_file.name)) }}">{{ each_file.name }}</a></li>
+        <li><a href="{{ request.static_url('tp_contest:static/upload_files/{}/{}'.format(competition_news.competition.id, each_file.name)) }}">{{ each_file.name }}</a></li>
       {% endfor %}
     </ul>
   </div>

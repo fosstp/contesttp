@@ -23,15 +23,21 @@
       <th scope="col">標題</th>
       <th scope="col">發佈時間</th>
       <th scope="col">作者</th>
+      {% if request.session['account_type'] == 'manager' and request.session['id'] == competition.manager_id %}
+      <th scope="col">動作</th>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
-    {% for each_news in competition.news %}
+    {% for each_news in competition_news %}
       <tr>
         <th scope="row">{{ loop.index }}</th>
-        <td><a href="{{ request.route_url('show_competition_news', competition_id=competition.id, news_id=each_news.id) }}">{{ each_news.title }}</a></td>
+        <td><a href="{{ request.route_url('show_competition_news', competition_id=competition.id, news_id=each_news.id) }}">{% if each_news.status == 1 %}<span style="color: #ff0000">置頂：</span>{% endif %}{{ each_news.title }}</a></td>
         <td>{{ each_news.publication_date }}</td>
         <td>{{ each_news.manager.name }}</td>
+        {% if request.session['account_type'] == 'manager' and request.session['id'] == competition.manager_id %}
+        <td><a href="{{ request.route_url('delete_competition_news', competition_id=competition.id, news_id=each_news.id) }}" class="btn btn-danger">刪除</a></td>
+        {% endif %}
       </tr>
     {% endfor %}
   </tbody>

@@ -4,3 +4,4 @@ development.ini
 production.ini
 alembic.ini
 .vscode
+upload_files/

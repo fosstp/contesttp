@@ -26,6 +26,7 @@ def main(global_config, **settings):
     config.add_route('list_competition_news', '/competition/{competition_id}/news')
     config.add_route('show_competition_news', '/competition/{competition_id}/news/{news_id}')
     config.add_route('add_competition_news', '/competition/{competition_id}/add_news')
+    config.add_route('delete_competition_news', '/competition/{competition_id}/delete_news/{news_id}')
     config.add_route('list_managers', '/managers')
     config.add_route('show_manager', '/manager/{manager_id}')
     config.add_route('list_signup_per_competition', '/competition/{competition_id}/signup')

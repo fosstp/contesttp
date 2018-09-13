@@ -84,8 +84,10 @@ def add_competition_view(request):
 
 @view_config(route_name='list_competition_news', renderer='templates/list_competition_news.jinja2')
 def list_competition_news_view(request):
-    competition = DB.query(Competition).filter_by(id=int(request.matchdict['competition_id'])).one()
-    return {'competition': competition}
+    competition_id = int(request.matchdict['competition_id'])
+    competition = DB.query(Competition).filter_by(id=competition_id).one()
+    competition_news = DB.query(CompetitionNews).filter_by(competition_id=competition_id).order_by(CompetitionNews.status.desc(), CompetitionNews.id)
+    return {'competition': competition, 'competition_news': competition_news}
 
 @view_config(route_name='show_competition_news', renderer='templates/show_competition_news.jinja2')
 def show_competition_news_view(request):
@@ -173,13 +175,15 @@ def add_competition_news_post_view(request):
         if DB.query(Competition).get(competition_id).manager_id != request.session['id']:
             return HTTPForbidden()
         competition_news = CompetitionNews()
-        competition_news_form.populate_obj(competition_news)
+        competition_news.title = competition_news_form.title.data
+        competition_news.content = competition_news_form.content.data 
         competition_news.competition_id = competition_id
         competition_news.manager_id = request.session['id']
         if competition_news_form.is_sticky.data:
             competition_news.status = 1
         # 處理上傳檔案
-        if competition_news_form.files.data:
+        if competition_news_form.files.data != [b'']:
+            # is FieldStorage
             file_list = request.POST.getall('files')
             dst_base_dir = pkg_resources.resource_filename('tp_contest', 'static/upload_files')
             if not os.path.exists(dst_base_dir):
@@ -191,11 +195,26 @@ def add_competition_news_post_view(request):
                 dst_file_name = '{0}_{1}'.format(''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5)), each_file.filename)
                 dst_file_path = os.path.join(competition_base_dir, dst_file_name)
                 each_file.file.seek(0)
-                with open(dst_file_path, 'w') as dst:
+                with open(dst_file_path, 'wb') as dst:
                     shutil.copyfileobj(each_file.file, dst)
                 file_model = File()
                 file_model.name = dst_file_name
+                DB.add(file_model)
                 competition_news.files.append(file_model)
+        DB.add(competition_news)
         return HTTPFound(location=request.route_url('list_competition_news', competition_id=competition_id), headers=request.response.headers)
     else:    
         return {'competition_news_form': competition_news_form}
+
+
+@view_config(route_name='delete_competition_news')
+@need_permission('manager')
+def delete_competition_news_view(request):
+    competition_id = int(request.matchdict['competition_id'])
+    competition_news_id = int(request.matchdict['news_id'])
+    competition = DB.query(Competition).get(competition_id)
+    if competition.manager_id != request.session['id']:
+        return HTTPForbidden()
+    DB.query(File).filter_by(competition_news_id=competition_news_id).delete()
+    DB.query(CompetitionNews).filter_by(id=competition_news_id).delete()
+    return HTTPFound(location=request.route_url('list_competition_news', competition_id=competition_id), headers=request.response.headers)
