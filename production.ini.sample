@@ -22,6 +22,8 @@ jinja2.filters =
 # secret key
 secret_key = qgrglgy5forzat89hf2y9hnd0kej9f23pvosc1aqnbfrqt0nf5
 
+upload_file_path = /PATH/TO/STORE/FILE
+
 ###
 # wsgi server configuration
 ###

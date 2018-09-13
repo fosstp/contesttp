@@ -24,6 +24,8 @@ jinja2.filters =
 # secret key
 secret_key = qny2uopiqjmdouegv01xx9d12tycn4ur0h8dbba98989qsc8bf
 
+upload_file_path = /PATH/TO/STORE/FILE
+
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.
 # debugtoolbar.hosts = 127.0.0.1 ::1
