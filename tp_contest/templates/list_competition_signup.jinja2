@@ -41,11 +41,11 @@
         {% endif %}
         <td>{{ each_signup.student1_name }}</td>
         <td>{{ each_signup.student1_class }}</td>
-        <td>{{ each_signup.student2_name }}</td>
-        <td>{{ each_signup.student2_class }}</td>
+        <td>{{ each_signup.student2_name or '' }}</td>
+        <td>{{ each_signup.student2_class or '' }}</td>
         <td>{{ each_signup.instructor1 }}</td>
-        <td>{{ each_signup.instructor2 }}</td>
-        <td>{{ each_signup.instructor3 }}</td>
+        <td>{{ each_signup.instructor2 or '' }}</td>
+        <td>{{ each_signup.instructor3 or '' }}</td>
         <td>{{ each_signup.signup_datetime }}</td>
       </tr>
     {% endfor %}
