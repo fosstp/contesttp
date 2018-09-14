@@ -28,10 +28,13 @@ class CompetitionForm(Form):
 
 
 class CompetitionSignUpForm(Form):
-    student_name = StringField('學生名字', [InputRequired('學生名字為必填欄位')])
-    student_class = StringField('學生班級', [InputRequired('學生班級為必填欄位')])
+    student1_name = StringField('學生1名字', [InputRequired('學生1名字為必填欄位')])
+    student1_class = StringField('學生1班級', [InputRequired('學生1班級為必填欄位')])
+    student2_name = StringField('學生2名字')
+    student2_class = StringField('學生2班級')
     instructor1 = StringField('指導老師1', [InputRequired('指導老師1為必填欄位')])
-    instructor2 = StringField('指導老師2', [InputRequired('指導老師2為必填欄位')])
+    instructor2 = StringField('指導老師2')
+    instructor3 = StringField('指導老師3')
 
 
 class CompetitionNewsForm(Form):

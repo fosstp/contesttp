@@ -22,10 +22,13 @@
       {% if request.session['account_type'] and request.session['account_type'] != 'school' %}
         <th scope="col">學校名稱</th>
       {% endif %}
-      <th scope="col">學生名稱</th>
-      <th scope="col">學生班級</th>
-      <th scope="col">指導老師一</th>
-      <th scope="col">指導老師二</th>
+      <th scope="col">學生1名稱</th>
+      <th scope="col">學生1班級</th>
+      <th scope="col">學生2名稱</th>
+      <th scope="col">學生2班級</th>
+      <th scope="col">指導老師1</th>
+      <th scope="col">指導老師2</th>
+      <th scope="col">指導老師3</th>
       <th scope="col">報名時間</th>
     </tr>
   </thead>
@@ -36,10 +39,13 @@
         {% if request.session['account_type'] and request.session['account_type'] != 'school' %}
           <td>{{ each_signup.school.name }}</td>
         {% endif %}
-        <td>{{ each_signup.student_name }}</td>
-        <td>{{ each_signup.student_class }}</td>
+        <td>{{ each_signup.student1_name }}</td>
+        <td>{{ each_signup.student1_class }}</td>
+        <td>{{ each_signup.student2_name }}</td>
+        <td>{{ each_signup.student2_class }}</td>
         <td>{{ each_signup.instructor1 }}</td>
         <td>{{ each_signup.instructor2 }}</td>
+        <td>{{ each_signup.instructor3 }}</td>
         <td>{{ each_signup.signup_datetime }}</td>
       </tr>
     {% endfor %}

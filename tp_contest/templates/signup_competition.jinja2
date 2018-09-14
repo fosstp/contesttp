@@ -3,12 +3,20 @@
 <h2 class="mx-auto">新增報名</h2>
 <form action="" method="post">
   <div class="form-group">
-    {{ competition_signup_form.student_name.label }}
-    {{ competition_signup_form.student_name(class='form-control', placeholder='學生名字')}}
+    {{ competition_signup_form.student1_name.label }}
+    {{ competition_signup_form.student1_name(class='form-control', placeholder='學生1名字')}}
   </div>
   <div class="form-group">
-    {{ competition_signup_form.student_class.label }}
-    {{ competition_signup_form.student_class(class='form-control', placeholder='學生班級')}}
+    {{ competition_signup_form.student1_class.label }}
+    {{ competition_signup_form.student1_class(class='form-control', placeholder='學生1班級')}}
+  </div>
+  <div class="form-group">
+    {{ competition_signup_form.student2_name.label }}
+    {{ competition_signup_form.student2_name(class='form-control', placeholder='學生2名字')}}
+  </div>
+  <div class="form-group">
+    {{ competition_signup_form.student2_class.label }}
+    {{ competition_signup_form.student2_class(class='form-control', placeholder='學生2班級')}}
   </div>
   <div class="form-group">
     {{ competition_signup_form.instructor1.label }}
@@ -17,6 +25,10 @@
   <div class="form-group">
     {{ competition_signup_form.instructor2.label }}
     {{ competition_signup_form.instructor2(class='form-control', placeholder='指導老師2')}}
+  </div>
+  <div class="form-group">
+    {{ competition_signup_form.instructor3.label }}
+    {{ competition_signup_form.instructor3(class='form-control', placeholder='指導老師3')}}
   </div>
   <button type="submit" class="btn btn-primary">報名</button>
 </form>
