@@ -99,11 +99,11 @@ class CompetitionSignUp(BaseObject):
 
     id = Column(Integer, primary_key=True)
 
-    # 學生名字
-    student_name = Column(String(100))
+    # 學生1名字
+    student1_name = Column(String(100))
 
-    # 學生班級
-    student_class = Column(String(100))
+    # 學生1班級
+    student1_class = Column(String(100))
 
     # 指導老師 1
     instructor1 = Column(String(100))
