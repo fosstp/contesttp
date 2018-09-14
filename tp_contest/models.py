@@ -105,11 +105,20 @@ class CompetitionSignUp(BaseObject):
     # 學生1班級
     student1_class = Column(String(100))
 
+    # 學生2名字
+    student2_name = Column(String(100))
+
+    # 學生2班級
+    student2_class = Column(String(100))
+
     # 指導老師 1
     instructor1 = Column(String(100))
 
     # 指導老師 2
     instructor2 = Column(String(100))
+
+    # 指導老師 3
+    instructor3 = Column(String(100))
 
     # 報名時間
     signup_datetime = Column(DateTime, nullable=False, default=datetime.datetime.now)
