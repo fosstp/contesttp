@@ -10,7 +10,7 @@
     {% if request.session['account_type'] == 'school' %}
       <a class="nav-link active" href="{{ request.route_url('list_signup_per_competition_school', competition_id=competition_id) }}">各校報名列表</a>
     {% else%}
-      <a class="nav-link active" href="{{ request.route_url('list_signup_per_competition', competition_id=competition_id) }}">全校報名列表</a>
+      <a class="nav-link active" href="{{ request.route_url('list_signup_per_competition', competition_id=competition_id) }}">全部報名列表</a>
     {% endif %}
   </li>
   {% endif %}
