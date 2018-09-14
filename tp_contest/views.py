@@ -60,7 +60,8 @@ def login_post_view(request):
 @view_config(route_name='logout')
 def logout_view(request):
     for i in 'account_type', 'name', 'account':
-        del request.session[i]
+        if i in request.session:
+            del request.session[i]
     return HTTPFound(location=request.route_url('home'))
 
 
