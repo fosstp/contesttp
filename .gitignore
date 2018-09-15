@@ -5,3 +5,4 @@ production.ini
 alembic.ini
 .vscode
 upload_files/
+.venv
