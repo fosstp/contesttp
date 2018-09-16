@@ -8,7 +8,7 @@
   {% if request.session['account_type'] %}
   <li class="nav-item">
     {% if request.session['account_type'] == 'school' %}
-      <a class="nav-link active" href="{{ request.route_url('list_signup_per_competition_school', competition_id=competition_id) }}">各校報名列表</a>
+      <a class="nav-link active" href="{{ request.route_url('list_signup_per_competition_school', competition_id=competition_id) }}">本校報名列表</a>
     {% else%}
       <a class="nav-link active" href="{{ request.route_url('list_signup_per_competition', competition_id=competition_id) }}">全部報名列表</a>
     {% endif %}
@@ -53,7 +53,7 @@
     {% endfor %}
   </tbody>
 </table>
-{% if request.session['account_type'] == 'school' and signup_list|length < signup_limit %}
+{% if request.session['account_type'] == 'school' and signup_list|length < signup_limit and is_signupable %}
   <a href="{{ request.route_url('signup_competition', competition_id=competition_id) }}" class="btn btn-primary">報名本校學生</a>
 {% endif %}
 {% endblock content%}

@@ -137,7 +137,8 @@ def list_signup_per_competition_school_view(request):
     competition = DB.query(Competition).get(competition_id)
     school_signup_list = DB.query(CompetitionSignUp).filter_by(competition_id=competition_id).filter_by(school_id=request.session['id']).all()
     signup_limit = DB.query(Competition).filter_by(id=competition_id).one().signup_limit
-    return {'competition': competition, 'signup_list': school_signup_list, 'competition_id': competition_id, 'signup_limit': signup_limit}
+    is_signupable = True if competition.begin_signup_datetime < datetime.now() < competition.end_signup_datetime else False
+    return {'competition': competition, 'signup_list': school_signup_list, 'competition_id': competition_id, 'signup_limit': signup_limit, 'is_signupable': is_signupable}
 
 
 @view_config(route_name='delete_signup')
@@ -165,18 +166,23 @@ def signup_competition_get_view(request):
 
 
 @view_config(route_name='signup_competition', renderer='templates/signup_competition.jinja2', request_method='POST')
+@need_permission('school')
 def signup_competition_post_view(request):
     from .forms import CompetitionSignUpForm
 
     competition_signup_form = CompetitionSignUpForm(request.POST)
     if competition_signup_form.validate():
         competition_id = int(request.matchdict['competition_id'])
-        signup = CompetitionSignUp()
-        competition_signup_form.populate_obj(signup)
-        signup.competition_id = competition_id
-        signup.school_id = request.session['id']
-        DB.add(signup)
-        return HTTPFound(location=request.route_url('list_signup_per_competition_school', competition_id=competition_id), headers=request.response.headers)
+        competition = DB.query(Competition).get(competition_id)
+        if competition.begin_signup_datetime < datetime.now() < competition.end_signup_datetime:
+            signup = CompetitionSignUp()
+            competition_signup_form.populate_obj(signup)
+            signup.competition_id = competition_id
+            signup.school_id = request.session['id']
+            DB.add(signup)
+            return HTTPFound(location=request.route_url('list_signup_per_competition_school', competition_id=competition_id), headers=request.response.headers)
+        else:
+            return HTTPForbidden()
     return {'competition_signup_form': competition_signup_form}
 
 
