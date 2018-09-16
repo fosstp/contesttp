@@ -109,18 +109,35 @@ def show_competition_news_view(request):
 
 
 @view_config(route_name='list_managers', renderer='templates/list_managers.jinja2')
+@need_permission('admin')
 def list_managers_view(request):
     managers = DB.query(Manager).all()
     return {'managers': managers}
 
 
-@view_config(route_name='show_manager', renderer='templates/show_manager.jinja2')
+@view_config(route_name='show_manager', renderer='templates/show_manager.jinja2', request_method='GET')
+@need_permission('admin')
 def show_manager_view(request):
     from .forms import ManagerForm
 
     manager = DB.query(Manager).filter_by(id=int(request.matchdict['manager_id'])).one()
     manager_form = ManagerForm(obj=manager)
     return {'manager_form': manager_form}
+
+@view_config(route_name='show_manager', renderer='templates/show_manager.jinja2', request_method='POST')
+@need_permission('admin')
+def show_manager_view(request):
+    from .forms import ManagerForm
+
+    manager_form = ManagerForm(request.POST)
+    if manager_form.validate():
+        manager = DB.query(Manager).filter_by(id=int(request.matchdict['manager_id'])).one()
+        manager.password = manager_form.password.data
+        DB.add(manager)
+        return HTTPFound(location=request.route_url('list_managers'), headers=request.response.headers)
+    else:
+        request.session.flash('請確認各欄位輸入正確', 'error')
+        return {'manager_form': manager_form}
 
 @view_config(route_name='list_signup_per_competition', renderer='templates/list_competition_signup.jinja2')
 @need_permission('manager')
