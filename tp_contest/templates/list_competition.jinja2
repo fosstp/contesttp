@@ -12,6 +12,7 @@
       <th scope="col">競賽名稱</th>
       <th scope="col">開始報名日期</th>
       <th scope="col">結束報名日期</th>
+      <th scope="col">狀態</th>
       {% if request.session['account_type'] == 'admin' %}
         <th scope="col">動作</th>
       {% endif %}
@@ -24,6 +25,13 @@
         <td><a href="{{ request.route_url('list_competition_news', competition_id=each_competition.id) }}">{{ each_competition.name }}</a></td>
         <td>{{ each_competition.begin_signup_datetime }}</td>
         <td>{{ each_competition.end_signup_datetime }}</td>
+        <td>
+	{% if each_competition.begin_signup_datetime < now < each_competition.end_signup_datetime %}
+          <span class="text-primary">已開放報名</span>
+        {% else %}
+          <span class="text-danger">尚未開放報名</span>
+        {% endif %}
+	</td>
         {% if request.session['account_type'] == 'admin' %}
           <td><a href="#" class="btn btn-primary">修改</a></td>
         {% endif %}
