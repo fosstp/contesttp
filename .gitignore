@@ -6,3 +6,5 @@ alembic.ini
 .vscode
 upload_files/
 .venv
+__pycache__
+wsgi.wsgi
