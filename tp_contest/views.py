@@ -39,7 +39,10 @@ def login_post_view(request):
                     request.session['name'] = manager.name
                     request.session['id'] = manager.id
                     request.session['account'] = manager.account
-                return HTTPFound(location=request.route_url('list_admin_competition'), headers=request.response.headers)
+                    return HTTPFound(location=request.route_url('list_admin_competition'), headers=request.response.headers)
+                else:
+                    request.session.flash('帳密認証錯誤，請重新輸入', 'error')
+                    return {'login_form': login_form}
             elif login_form.account_type.data == 'school':
                 school = DB.query(School).filter_by(
                     account=login_form.account.data).one()
@@ -48,12 +51,16 @@ def login_post_view(request):
                     request.session['name'] = school.name
                     request.session['id'] = school.id
                     request.session['account'] = school.account
-                if school.status == 0:
-                    return HTTPFound(location=request.route_url('change_password'), headers=request.response.headers)
+                    if school.status == 0:
+                        return HTTPFound(location=request.route_url('change_password'), headers=request.response.headers)
+                    else:
+                        return HTTPFound(location=request.route_url('list_guest_competition'), headers=request.response.headers)
                 else:
-                    return HTTPFound(location=request.route_url('list_guest_competition'), headers=request.response.headers)
+                    request.session.flash('帳密認証錯誤，請重新輸入', 'error')
+                    return {'login_form': login_form}
         except NoResultFound:
             request.session.flash('帳密認証錯誤，請重新輸入', 'error')
+    request.session.flash('帳密認証錯誤，請重新輸入', 'error')
     return {'login_form': login_form}
 
 
@@ -132,6 +139,22 @@ def list_signup_per_competition_school_view(request):
     signup_limit = DB.query(Competition).filter_by(id=competition_id).one().signup_limit
     return {'competition': competition, 'signup_list': school_signup_list, 'competition_id': competition_id, 'signup_limit': signup_limit}
 
+
+@view_config(route_name='delete_signup')
+def delete_signup_view(request):
+    competition_id = int(request.matchdict['competition_id'])
+    signup_id = int(request.matchdict['signup_id'])
+
+    if 'account_type' not in request.session:
+        return HTTPForbidden()
+
+    if request.session['account_type'] == 'school':
+        DB.query(CompetitionSignUp).filter_by(id=signup_id).filter_by(school_id=request.session['id']).delete()
+        return HTTPFound(location=request.route_url('list_signup_per_competition_school', competition_id=competition_id), headers=request.response.headers)
+    else:
+        DB.query(CompetitionSignUp).filter_by(id=signup_id).delete()
+        return HTTPFound(location=request.route_url('list_signup_per_competition', competition_id=competition_id), headers=request.response.headers)
+        
 
 @view_config(route_name='signup_competition', renderer='templates/signup_competition.jinja2', request_method='GET')
 def signup_competition_get_view(request):
