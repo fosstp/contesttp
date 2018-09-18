@@ -273,6 +273,7 @@ def delete_competition_news_view(request):
 
 
 @view_config(route_name='change_password', renderer='templates/change_password.jinja2', request_method='GET')
+@need_permission('school')
 def change_password_get_view(request):
     from .forms import PasswordForm
 
