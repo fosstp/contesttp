@@ -74,9 +74,9 @@ def logout_view(request):
 
 @view_config(route_name='list_guest_competition', renderer='templates/list_competition.jinja2')
 def list_guest_competition_view(request):
-    # 匿名使用者，只能看尚未過期的競賽列表
+    # 匿名使用者，也可看過期的競賽列表
     now = datetime.now()
-    competition = DB.query(Competition).filter(datetime.now()<Competition.end_signup_datetime).all()
+    competition = DB.query(Competition).all()
     return {'competition': competition, 'now': now}
 
 @view_config(route_name='list_admin_competition', renderer='templates/list_competition.jinja2')
