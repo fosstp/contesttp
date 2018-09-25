@@ -34,5 +34,6 @@ def main(global_config, **settings):
     config.add_route('delete_signup', '/competition/{competition_id}/delete_signup/{signup_id}')
     config.add_route('signup_competition', '/signup/{competition_id}')
     config.add_route('change_password', '/change_password')
+    config.add_route('print_signup', '/print_signup/{signup_id}')
     config.scan()
     return config.make_wsgi_app()

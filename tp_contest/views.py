@@ -300,3 +300,11 @@ def change_password_post_view(request):
         print('d')
         request.session.flash('密碼錯誤，請確認舊密碼正確，兩次新密碼輸入相同', 'error')
         return {'password_form': password_form}
+
+
+@view_config(route_name='print_signup', renderer='templates/print_signup.jinja2')
+@need_permission('school')
+def print_signup_view(request):
+    signup_id = int(request.matchdict['signup_id'])
+    signup = DB.query(CompetitionSignUp).get(signup_id)
+    return {'signup': signup}

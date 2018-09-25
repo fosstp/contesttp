@@ -48,7 +48,7 @@
         <td>{{ each_signup.instructor2 or '' }}</td>
         <td>{{ each_signup.instructor3 or '' }}</td>
         <td>{{ each_signup.signup_datetime }}</td>
-	<td><a href="{{ request.route_url('delete_signup', competition_id=competition_id, signup_id=each_signup.id) }}" class="btn btn-primary">刪除</a></td>
+	<td><a href="{{ request.route_url('print_signup', signup_id=each_signup.id) }}" class="btn btn-primary">列印核章</a> <a href="{{ request.route_url('delete_signup', competition_id=competition_id, signup_id=each_signup.id) }}" class="btn btn-danger">刪除</a></td>
       </tr>
     {% endfor %}
   </tbody>

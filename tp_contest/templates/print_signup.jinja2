@@ -1,0 +1,50 @@
+{% extends "base.jinja2" %}
+{% block content %}
+<h1>{{ signup.competition.name }}</h1>
+<div class="row">
+  <div class="col-6 text-right">學校名稱：</div>
+  <div class="col-6">{{ signup.school.name }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">學生1姓名：</div>
+  <div class="col-6">{{ signup.student1_name }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">學生1班級：</div>
+  <div class="col-6">{{ signup.student1_class }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">學生2姓名：</div>
+  <div class="col-6">{{ signup.student2_name }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">學生2班級：</div>
+  <div class="col-6">{{ signup.student2_class }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">學生3姓名：</div>
+  <div class="col-6">{{ signup.student3_name }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">學生3班級：</div>
+  <div class="col-6">{{ signup.student3_class }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">指導老師1：</div>
+  <div class="col-6">{{ signup.instructor1 }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">指導老師2：</div>
+  <div class="col-6">{{ signup.instructor2 }}</div>
+</div>
+<div class="row">
+  <div class="col-6 text-right">指導老師3：</div>
+  <div class="col-6">{{ signup.instructor3 }}</div>
+</div>
+<br>
+<div class="row">
+  <div class="col-4">承辦人：____________</div>
+  <div class="col-4">單位主管：____________</div>
+  <div class="col-4">校長：____________</div>
+</div>
+{% endblock content%}
