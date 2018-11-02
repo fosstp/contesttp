@@ -13,7 +13,7 @@
     標題：{{ competition_news.title }}
   </div>
   <div class="card-body">
-    <p class="card-text">內容：{{ competition_news.content }}</a>
+    <p class="card-text">內容：<br>{{ competition_news.content|nl2br|safe }}</a>
   </div>
   <div class="card-footer text-muted">
     附件下載

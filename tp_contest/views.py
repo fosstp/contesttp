@@ -255,7 +255,7 @@ def add_competition_news_post_view(request):
                 competition_news.files.append(file_model)
         DB.add(competition_news)
         return HTTPFound(location=request.route_url('list_competition_news', competition_id=competition_id), headers=request.response.headers)
-    else:    
+    else:
         return {'competition_news_form': competition_news_form}
 
 

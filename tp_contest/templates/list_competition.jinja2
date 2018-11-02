@@ -28,6 +28,8 @@
         <td>
 	{% if each_competition.begin_signup_datetime < now < each_competition.end_signup_datetime %}
           <span class="text-primary">已開放報名</span>
+	{% elif each_competition.end_signup_datetime < now %}
+          <span class="text-danger">已結束報名</span>
         {% else %}
           <span class="text-danger">尚未開放報名</span>
         {% endif %}
