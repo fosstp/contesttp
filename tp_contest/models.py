@@ -12,7 +12,7 @@ class BaseAccount:
     id = Column(Integer, primary_key=True)
 
     # 名稱
-    name = Column(String(100), unique=True)
+    name = Column(String(100))
 
     # 帳號
     account = Column(String(100), unique=True)
