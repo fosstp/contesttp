@@ -22,9 +22,13 @@ jinja2.filters =
     static_path = pyramid_jinja2.filters:static_path_filter
 
 # secret key
-secret_key = qny2uopiqjmdouegv01xx9d12tycn4ur0h8dbba98989qsc8bf
+secret_key = SECRET
 
-upload_file_path = /PATH/TO/STORE/FILE
+# 上傳檔案儲存位置
+upload_file_path = %(here)s/static/file_uploads
+
+# 資料庫設定
+sqlalchemy.url = 
 
 # By default, the toolbar only appears for clients from IP addresses
 # '127.0.0.1' and '::1'.

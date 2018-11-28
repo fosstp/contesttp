@@ -20,9 +20,13 @@ jinja2.filters =
     static_path = pyramid_jinja2.filters:static_path_filter
 
 # secret key
-secret_key = qgrglgy5forzat89hf2y9hnd0kej9f23pvosc1aqnbfrqt0nf5
+secret_key = SECRET
 
-upload_file_path = /PATH/TO/STORE/FILE
+# 上傳檔案儲存位置
+upload_file_pate = %(here)s/static/file_uploads
+
+# 資料庫設定
+sqlalchemy.url =
 
 ###
 # wsgi server configuration
